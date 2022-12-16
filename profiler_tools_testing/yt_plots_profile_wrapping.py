@@ -1,0 +1,38 @@
+# this example has a wrapper around a profilehooks-wraped function
+# so that you can easily change the arguments to profilehooks.profile
+#
+# $ python yt_plots_profile_wrapping.py SlicePlot 5
+# $ gprof2dot -f pstats SlicePlot_5.pstats | dot -Tpdf -o SlicePlot_5_dot.pdf
+# $ flameprof SlicePlot_5.pstats > SlicePlot_5_flame.svg
+
+import yt
+from profilehooks import profile
+import sys
+
+
+def get_profiling_func(pstats_file):
+    @profile(filename=pstats_file, profiler="cProfile")
+    def make_a_plot(plot_func, ds, field):
+        p = plot_func(ds, "x", field)
+        p.save()
+
+    return make_a_plot
+
+
+if __name__ == "__main__":
+
+    # get the projection function
+    plot_type = sys.argv[1]
+    N_runs = int(sys.argv[2])
+    output_pstats_file = f"{plot_type}_{N_runs}.pstats"
+
+    # initialize outside so that we store all the iterations in a single file.
+    plot_caller = get_profiling_func(output_pstats_file)
+
+    fld = ("enzo", "Density")
+    yt_plot_func = getattr(yt, plot_type)  # plot func handle, e.g., SlicePlot
+    for it in range(N_runs):
+        # reload every time to make sure any caches are cleared
+        ds = yt.load_sample("IsolatedGalaxy")
+        # call it!
+        plot_caller(yt_plot_func, ds, fld)

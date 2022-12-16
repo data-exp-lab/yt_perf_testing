@@ -1,7 +1,12 @@
-# 
+# profiling outputs 
 *.png
 *.pstats
 *.idea
+*.txt
+*.html
+*.bin
+*.pdf
+*.svg
 
 # Byte-compiled / optimized / DLL files
 __pycache__/

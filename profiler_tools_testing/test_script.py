@@ -1,5 +1,8 @@
+# generic test script
 # python test_script.py
 # gprof2dot -f pstats output.pstats | dot -Tpng -o output.png
+# or to get a pdf
+# gprof2dot -f pstats output.pstats | dot -Tpdf -o output.pdf
 
 from profilehooks import profile
 from time import sleep

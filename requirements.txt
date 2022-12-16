@@ -1,0 +1,11 @@
+yt
+h5py
+pooch
+pandas
+memray
+profilehooks
+graphviz
+gprof2dot
+flameprof
+jupyterlab
+dask[complete]

@@ -1,3 +1,6 @@
+# very simple profiling at present: just manual timing of the function call.
+# TODO: use actual profiling tools (see profiler_tools_testing/ directory)
+
 from yt_grid_tests import build_data, functions_to_test
 import argparse
 import os
