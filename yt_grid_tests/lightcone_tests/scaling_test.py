@@ -49,7 +49,7 @@ if __name__ == "__main__":
  
     valid_tests = ('profile1d', 'projection', 'find_max')
     if (sys.argv) == 0:
-	    test_to_run = 'profile1d'
+        test_to_run = 'profile1d'
     else:
         test_to_run = sys.argv[1] 
         if test_to_run not in valid_tests:
