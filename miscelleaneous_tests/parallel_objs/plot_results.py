@@ -8,10 +8,22 @@ df = df.sort_values('n_procs')
 df = df.reset_index()
 print(df)
 
-plt.plot(df.n_procs, df['dt'], marker='.',label='actual')
-plt.plot(df.n_procs, df['ideal_distrib_time'], marker='.', label='ideal')
-plt.legend()
-plt.xlabel('N processors')
-plt.ylabel('elapsed time [s]')
-plt.gcf().savefig('result.png')
-plt.show()
+fig, axs = plt.subplots(nrows=1, ncols=3, figsize=(8,2))
+
+axs[0].plot(df.n_procs, df['dt'], marker='.',label='actual')
+axs[0].plot(df.n_procs, df['ideal_distrib_time'], marker='.', label='ideal')
+axs[0].legend()
+axs[0].set_xlabel('N processors')
+axs[0].set_ylabel('elapsed time [s]')
+
+axs[1].plot(df.n_procs, df['dt'] / df['ideal_distrib_time'] , marker='.',label='actual')
+axs[1].set_xlabel('N processors')
+axs[1].set_ylabel('actual / ideal')
+
+axs[2].plot(df.n_procs, (df['dt'] - df['ideal_distrib_time']) / df['ideal_distrib_time'] , marker='.',label='actual')
+axs[2].set_xlabel('N processors')
+axs[2].set_ylabel('(actual - ideal) / ideal')
+
+fig.set_tight_layout('tight')
+fig.savefig('result.png')
+

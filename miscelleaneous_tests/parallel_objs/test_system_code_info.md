@@ -1,3 +1,24 @@
+## yt code state
+
+yt main branch, last commit hash was 
+
+416a6a43bd85ed838b9ca8206393048e09df0aca
+
+running in a pyenv virtualenv with system Open MPI, `mpirun -version` output:
+
+```commandline
+mpirun (Open MPI) 4.1.5
+```
+
+## system info 
+
+```commandline
+system_profiler SPSoftwareDataType SPHardwareDataType
+```
+
+outputs 
+
+```commandline
 Software:
 
     System Software Overview:
@@ -22,4 +43,5 @@ Hardware:
       Memory: 32 GB
       System Firmware Version: 8422.141.2
       OS Loader Version: 8422.141.2
+```
 
