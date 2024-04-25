@@ -81,3 +81,23 @@ def test_one_by_index(test_index: int,
     test_files = find_tests(dir_for_data, use_yt_data_dir)
     _test_one_ds(test_files[test_index], output_stats_file)
 
+
+def big_tipsy_sphere_selection(output_stats_file: str):
+
+    ds = yt.load_sample('big_tipsy')
+
+    # decide on a center, radius for the sphere
+    ad = ds.all_data()
+    val, x, y, z = ad.quantities.max_location(('Gas', 'Density'))
+    c = ds.arr([x, y, z], x.units)
+    R = (200, 'kpc')
+
+    sp = ds.sphere(c, R)
+
+    field = ("Gas", "O_fraction")
+
+    if profiler_settings.profiler == "memray":
+        memray_load(output_stats_file, sp, field)
+    else:
+        load_func = get_profiled_load(output_stats_file)
+        load_func(sp, field)

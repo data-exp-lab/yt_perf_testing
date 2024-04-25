@@ -5,6 +5,7 @@ pandas
 memray
 profilehooks
 graphviz
+snakeviz
 gprof2dot
 flameprof
 jupyterlab
