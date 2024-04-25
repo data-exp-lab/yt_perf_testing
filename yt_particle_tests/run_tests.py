@@ -6,7 +6,8 @@ from shutil import rmtree
 if __name__ == "__main__":
 
     parser = argparse.ArgumentParser(description='Run a test')
-    ops = ('build_data', 'clear_data', 'list_test_range', 'test_one_by_index')
+    big_tipsy = 'big_tipsy'
+    ops = ('build_data', 'clear_data', 'list_test_range', 'test_one_by_index', big_tipsy)
 
     parser.add_argument('operation', type=str, help=f"the name of the test function to run: {ops}")
     parser.add_argument('--profiler', type=str, default='cProfile', help=f"The profiler to use: cProfile or memray")
@@ -48,5 +49,17 @@ if __name__ == "__main__":
 
         print(f"testing\n {test_fi} \n\n saving to \n {profiler_output_file}")
         functions_to_test._test_one_ds(test_fi, profiler_output_file)
+
+    elif args.operation == big_tipsy:
+
+        functions_to_test.profiler_settings.set_profiler(args.profiler)
+
+        out_dir = args.output_dir
+        if os.path.isdir(out_dir) is False:
+            os.mkdir(out_dir)
+        profiler_output_file = functions_to_test.profiler_settings.get_output_name(big_tipsy)
+        profiler_output_file = os.path.join(out_dir, profiler_output_file)
+
+        functions_to_test.big_tipsy_sphere_selection(profiler_output_file)
 
 
