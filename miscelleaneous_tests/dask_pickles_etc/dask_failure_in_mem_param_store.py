@@ -10,24 +10,6 @@ def find_min_val(ds):
 
 yt.set_log_level(50)
 
-"""
-important note on dask state: 
-
-When you start the dask distributed cluster, new subprocesses are created. 
-Unless you use fork (&), this will involve reimporting the current script, with 
-a name other than __main__ . This is how the if block prevents each worker process 
-from also trying to create clusters-within-clusters. So, by placing your import 
-within the if block, you stop the workers from executing them.
-
-https://stackoverflow.com/questions/75837897/dask-worker-has-different-imports-than-main-thread
-
-so, need to:
-
-1. set 'store_parameter_files' config to true 
-
-and before __name__ need to ensure the object registries are updated
-"""
-
 # The store_parameter_files config option controls how datasets
 # are pickled. If True, an on-disk csv file is created. If False,
 # an in-memory store is used, which can introduce some
